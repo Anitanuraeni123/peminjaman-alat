@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        DB::unprepared("
+            DROP FUNCTION IF EXISTS fn_hitung_denda;
+            
+            CREATE FUNCTION fn_hitung_denda(
+                p_tgl_harus_kembali DATE,
+                p_tgl_kembali DATE,
+                p_jumlah INT,
+                p_tarif_harian DECIMAL(12,2)
+            ) 
+            RETURNS DECIMAL(12,2)
+            DETERMINISTIC
+            BEGIN
+                DECLARE v_denda_hari_terlambat INT;
+                
+                -- BR-05: dihitung per hari kalender, akhir pekan dan hari libur ikut terhitung
+                SET v_denda_hari_terlambat = DATEDIFF(p_tgl_kembali, p_tgl_harus_kembali);
+                
+                IF v_denda_hari_terlambat <= 0 THEN
+                    RETURN 0;
+                END IF;
+
+                -- BR-04: hari terlambat x tarif_harian x jumlah
+                RETURN v_denda_hari_terlambat * p_tarif_harian * p_jumlah;    
+            END;
+        ");
+    }
+
+    public function down(): void
+    {
+        DB::unprepared("DROP FUNCTION IF EXISTS fn_hitung_denda;");
+    }
+};
