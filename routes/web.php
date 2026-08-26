@@ -8,6 +8,8 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\PengembalianController; 
+use App\Http\Controllers\LogAktivitasController;
+use App\Http\Controllers\LaporanController;
 
 // Redirect halaman utama langsung ke halaman login
 Route::get('/', function () {
@@ -97,5 +99,17 @@ Route::middleware('permission:peminjaman.setujui')
                 '/rincian/{pengembalian}',
                 [PengembalianController::class, 'rincian']
             )->name('rincian');
+        });
+        Route::middleware('permission:log.lihat')
+        ->get('/log-aktivitas', [LogAktivitasController::class, 'index'])
+        ->name('log.index');
+        Route::middleware('permission:laporan.cetak')
+        ->prefix('laporan')
+        ->name('laporan.')
+        ->group(function () {
+            Route::get('/', [LaporanController::class, 'form'])->name('form');
+            Route::get('/peminjaman', [LaporanController::class, 'peminjaman'])->name('peminjaman');
+            Route::get('/pengembalian', [LaporanController::class, 'pengembalian'])->name('pengembalian');
+            Route::get('/stok', [LaporanController::class, 'stok'])->name('stok');
         });
 });

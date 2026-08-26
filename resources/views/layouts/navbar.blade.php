@@ -24,13 +24,18 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('persetujuan.antrian') }}">Persetujuan</a></li>
                 @endcan
 
-                <!-- Penambahan Menu Petugas Pengembalian -->
                 @can('pengembalian.pantau')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pengembalian.pantau') }}">Pemantauan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pengembalian.antrian') }}">Verifikasi</a>
+                    </li>
+                @endcan
+
+                @can('laporan.cetak')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('laporan.form') }}">Laporan</a>
                     </li>
                 @endcan
 
@@ -54,6 +59,12 @@
                         <a class="nav-link" href="{{ route('peminjaman.saya') }}">
                             Peminjaman Saya
                         </a>
+                    </li>
+                @endcan
+
+                @can('log.lihat')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('log.index') }}">Log Aktivitas</a>
                     </li>
                 @endcan
             </ul>
