@@ -17,7 +17,7 @@ class CatatLogout
             'user_id'      => $event->user->id,
             'aksi'         => 'Logout',
             'tabel_tujuan' => 'users',
-            'deskripsi'    => 'Pengguna' . $event->user->username . 'keluar dari sistem',
+            'deskripsi'    => 'Pengguna ' . $event->user->username . ' keluar dari sistem',
             'ip_address'   => request()->ip(),
         ]);
     }

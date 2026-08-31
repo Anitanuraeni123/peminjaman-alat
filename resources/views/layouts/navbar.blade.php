@@ -39,6 +39,24 @@
                     </li>
                 @endcan
 
+                @can('peminjaman.kelola')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('koreksi.peminjaman.daftar') }}">Data Peminjaman</a>
+                    </li>
+                @endcan
+
+                @can('pengembalian.kelola')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('koreksi.pengembalian.daftar') }}">Data Pengembalian</a>
+                    </li>
+                @endcan
+
+                @can('pengaturan.kelola')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pengaturan.form') }}">Pengaturan</a>
+                    </li>
+                @endcan
+
                 @can('alat.lihat')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('katalog.daftar') }}">

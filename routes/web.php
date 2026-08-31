@@ -10,6 +10,9 @@ use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\PengembalianController; 
 use App\Http\Controllers\LogAktivitasController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KoreksiPeminjamanController;
+use App\Http\Controllers\KoreksiPengembalianController;
+use App\Http\Controllers\PengaturanController;
 
 // Redirect halaman utama langsung ke halaman login
 Route::get('/', function () {
@@ -112,4 +115,29 @@ Route::middleware('permission:peminjaman.setujui')
             Route::get('/pengembalian', [LaporanController::class, 'pengembalian'])->name('pengembalian');
             Route::get('/stok', [LaporanController::class, 'stok'])->name('stok');
         });
+Route::middleware('permission:peminjaman.kelola')
+        ->prefix('koreksi/peminjaman')
+        ->name('koreksi.peminjaman.')
+        ->group(function () {
+            Route::get('/', [KoreksiPeminjamanController::class, 'daftar'])->name('daftar');
+            Route::get('/{peminjaman}/ubah', [KoreksiPeminjamanController::class, 'formUbah'])->name('ubah');
+            Route::put('/{peminjaman}', [KoreksiPeminjamanController::class, 'perbarui'])->name('perbarui');
+            Route::delete('/{peminjaman}', [KoreksiPeminjamanController::class, 'hapus'])->name('hapus');
+        });
+
+    Route::middleware('permission:pengembalian.kelola')
+        ->prefix('koreksi/pengembalian')
+        ->name('koreksi.pengembalian.')
+        ->group(function () {
+            Route::get('/', [KoreksiPengembalianController::class, 'daftar'])->name('daftar');
+            Route::get('/{pengembalian}/ubah', [KoreksiPengembalianController::class, 'formUbah'])->name('ubah');
+            Route::put('/{pengembalian}', [KoreksiPengembalianController::class, 'perbarui'])->name('perbarui');
+        });
+        Route::middleware('permission:pengaturan.kelola')
+    ->prefix('pengaturan')
+    ->name('pengaturan.')
+    ->group(function () {
+        Route::get('/', [PengaturanController::class, 'form'])->name('form');
+        Route::put('/', [PengaturanController::class, 'perbarui'])->name('perbarui');
+    });
 });
