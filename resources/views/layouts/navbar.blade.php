@@ -21,15 +21,41 @@
                 @endcan
 
                 @can('peminjaman.setujui')
-                    <li class="nav-item"><a class="nav-link" href="{{ route('persetujuan.antrian') }}">Persetujuan</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('persetujuan.antrian') }}">
+                            Persetujuan
+                            {{-- MODIFIKASI: Menambahkan badge angka persetujuan --}}
+                            @if (!empty($countPersetujuan) && $countPersetujuan > 0)
+                                <span class="badge bg-warning text-dark ms-1">
+                                    {{ $countPersetujuan }}
+                                </span>
+                            @endif
+                        </a>
+                    </li>
                 @endcan
 
                 @can('pengembalian.pantau')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pengembalian.pantau') }}">Pemantauan</a>
+                        <a class="nav-link" href="{{ route('pengembalian.pantau') }}">
+                            Pemantauan
+                            {{-- MODIFIKASI: Menambahkan badge angka pemantauan --}}
+                            @if (!empty($countPemantauan) && $countPemantauan > 0)
+                                <span class="badge bg-info text-dark ms-1">
+                                    {{ $countPemantauan }}
+                                </span>
+                            @endif
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pengembalian.antrian') }}">Verifikasi</a>
+                        <a class="nav-link" href="{{ route('pengembalian.antrian') }}">
+                            Verifikasi
+                            {{-- MODIFIKASI: Menambahkan badge angka verifikasi --}}
+                            @if (!empty($countVerifikasi) && $countVerifikasi > 0)
+                                <span class="badge bg-danger ms-1">
+                                    {{ $countVerifikasi }}
+                                </span>
+                            @endif
+                        </a>
                     </li>
                 @endcan
 
@@ -67,7 +93,8 @@
                         <a class="nav-link" href="{{ route('katalog.keranjang') }}">
                             Keranjang
                             @if (count(session('keranjang', [])) > 0)
-                                <span class="badge bg-warning text-dark">
+                                {{-- MODIFIKASI: Menambahkan margin start (ms-1) agar badge tidak menempel dengan teks Keranjang --}}
+                                <span class="badge bg-warning text-dark ms-1">
                                     {{ count(session('keranjang', [])) }}
                                 </span>
                             @endif
