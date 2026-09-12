@@ -12,7 +12,6 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
-                    <!-- Menggunakan tag x-input bertutup mandiri atau input Bootstrap biasa -->
                     <x-input name="username" label="Nama Pengguna" required autofocus />
 
                     <x-input name="password" label="Kata Sandi" type="password" required />

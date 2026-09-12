@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">Peminjaman Alat</a>
 
@@ -9,20 +9,20 @@
         <div class="collapse navbar-collapse" id="menuUtama">
             <ul class="navbar-nav me-auto">
                 @can('kategori.kelola')
-                    <li class="nav-item"><a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}" href="{{ route('kategori.index') }}">Kategori</a></li>
                 @endcan
 
                 @can('alat.kelola')
-                    <li class="nav-item"><a class="nav-link" href="{{ route('alat.index') }}">Alat</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('alat.*') ? 'active' : '' }}" href="{{ route('alat.index') }}">Alat</a></li>
                 @endcan
 
                 @can('user.kelola')
-                    <li class="nav-item"><a class="nav-link" href="{{ route('pengguna.index') }}">Pengguna</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('pengguna.*') ? 'active' : '' }}" href="{{ route('pengguna.index') }}">Pengguna</a></li>
                 @endcan
 
                 @can('peminjaman.setujui')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('persetujuan.antrian') }}">
+                        <a class="nav-link {{ request()->routeIs('persetujuan.*') ? 'active' : '' }}" href="{{ route('persetujuan.antrian') }}">
                             Persetujuan
                             {{-- MODIFIKASI: Menambahkan badge angka persetujuan --}}
                             @if (!empty($countPersetujuan) && $countPersetujuan > 0)
@@ -36,7 +36,7 @@
 
                 @can('pengembalian.pantau')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pengembalian.pantau') }}">
+                        <a class="nav-link {{ request()->routeIs('pengembalian.pantau') ? 'active' : '' }}" href="{{ route('pengembalian.pantau') }}">
                             Pemantauan
                             {{-- MODIFIKASI: Menambahkan badge angka pemantauan --}}
                             @if (!empty($countPemantauan) && $countPemantauan > 0)
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pengembalian.antrian') }}">
+                        <a class="nav-link {{ request()->routeIs('pengembalian.antrian') ? 'active' : '' }}" href="{{ route('pengembalian.antrian') }}">
                             Verifikasi
                             {{-- MODIFIKASI: Menambahkan badge angka verifikasi --}}
                             @if (!empty($countVerifikasi) && $countVerifikasi > 0)
@@ -61,39 +61,38 @@
 
                 @can('laporan.cetak')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('laporan.form') }}">Laporan</a>
+                        <a class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}" href="{{ route('laporan.form') }}">Laporan</a>
                     </li>
                 @endcan
 
                 @can('peminjaman.kelola')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('koreksi.peminjaman.daftar') }}">Data Peminjaman</a>
+                        <a class="nav-link {{ request()->routeIs('koreksi.peminjaman.*') ? 'active' : '' }}" href="{{ route('koreksi.peminjaman.daftar') }}">Data Peminjaman</a>
                     </li>
                 @endcan
 
                 @can('pengembalian.kelola')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('koreksi.pengembalian.daftar') }}">Data Pengembalian</a>
+                        <a class="nav-link {{ request()->routeIs('koreksi.pengembalian.*') ? 'active' : '' }}" href="{{ route('koreksi.pengembalian.daftar') }}">Data Pengembalian</a>
                     </li>
                 @endcan
 
-                @can('pengaturan.kelola')
+                @can('log.lihat')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pengaturan.form') }}">Pengaturan</a>
+                        <a class="nav-link {{ request()->routeIs('log.*') ? 'active' : '' }}" href="{{ route('log.index') }}">Log Aktivitas</a>
                     </li>
                 @endcan
 
                 @can('alat.lihat')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('katalog.daftar') }}">
+                        <a class="nav-link {{ request()->routeIs('katalog.daftar') ? 'active' : '' }}" href="{{ route('katalog.daftar') }}">
                             Katalog Alat
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('katalog.keranjang') }}">
+                        <a class="nav-link {{ request()->routeIs('katalog.keranjang') ? 'active' : '' }}" href="{{ route('katalog.keranjang') }}">
                             Keranjang
                             @if (count(session('keranjang', [])) > 0)
-                                {{-- MODIFIKASI: Menambahkan margin start (ms-1) agar badge tidak menempel dengan teks Keranjang --}}
                                 <span class="badge bg-warning text-dark ms-1">
                                     {{ count(session('keranjang', [])) }}
                                 </span>
@@ -101,15 +100,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('peminjaman.saya') }}">
+                        <a class="nav-link {{ request()->routeIs('peminjaman.saya') ? 'active' : '' }}" href="{{ route('peminjaman.saya') }}">
                             Peminjaman Saya
                         </a>
                     </li>
                 @endcan
 
-                @can('log.lihat')
+                @can('pengaturan.kelola')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('log.index') }}">Log Aktivitas</a>
+                        <a class="nav-link {{ request()->routeIs('pengaturan.*') ? 'active' : '' }}" href="{{ route('pengaturan.form') }}">Pengaturan</a>
                     </li>
                 @endcan
             </ul>
